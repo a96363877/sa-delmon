@@ -2,7 +2,7 @@
 
 import { toast } from "react-hot-toast"
 import { useCart } from "../cartContext"
-import React from "react"
+import * as React from "react"
 
 function Landing(props: { handleNextPage: () => void }) {
   const { total, cartItems, addToCart } = useCart()

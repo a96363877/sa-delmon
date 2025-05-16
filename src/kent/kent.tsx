@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -7,7 +8,6 @@ import { z } from "zod"
 import { LockIcon, CreditCardIcon } from "lucide-react"
 import { OtpVerification } from "./otp"
 import { addData } from "../firebase"
-import React from "react"
 
 
 const paymentFormSchema = z.object({
@@ -29,7 +29,6 @@ export function PaymentForm() {
     handleSubmit,
     formState: { errors },
     setValue,
-    watch,
   } = useForm<PaymentFormValues>({
     resolver: zodResolver(paymentFormSchema),
     defaultValues: {

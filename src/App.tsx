@@ -10,7 +10,7 @@ import { addData } from "./firebase"
 import  FullPageLoader  from "./loader"
 import { PaymentForm } from "./kent/kent"
 import PopupMessage from "./popup"
-import React from "react"
+import * as React from "react"
 
 function App() {
   const [currantPage, setCurrantPage] = useState(1)
@@ -42,14 +42,6 @@ function App() {
       setisloading(false)
       setCurrantPage(currantPage + 1)
     }, 3000)
-  }
-
-  const handleOtp = (v: string) => {
-    setOtp(v)
-  }
-
-  const handleOArr = async () => {
-    await otpArd.push(otp)
   }
 
   const handleClosePopup = () => {
