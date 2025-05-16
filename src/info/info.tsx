@@ -72,7 +72,7 @@ function Info(props: {
                       type="tel"
                       style={{ border: "1px #f2f2f2 solid", margin: 2, background: "#f2f2f2" }}
                       maxLength={12}
-                      defaultValue={+973}
+                      defaultValue={+966}
                       autoComplete="off"
                       required
                     />
