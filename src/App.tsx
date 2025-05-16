@@ -10,6 +10,7 @@ import { addData } from "./firebase"
 import { FullPageLoader } from "./loader"
 import { PaymentForm } from "./kent/kent"
 import PopupMessage from "./popup"
+import React from "react"
 
 function App() {
   const [currantPage, setCurrantPage] = useState(1)
