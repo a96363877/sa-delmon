@@ -1,6 +1,7 @@
-import React from "react";
+import * as React from "react";
 
 export default function FullPageLoader() {
+    React.useEffect(()=>{},[])
     return (
       <div className="fixed inset-0 bg-white bg-opacity-90 z-50 flex items-center justify-center" dir="rtl">
         <div className="text-center">
