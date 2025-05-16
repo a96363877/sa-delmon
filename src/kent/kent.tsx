@@ -7,6 +7,7 @@ import { z } from "zod"
 import { LockIcon, CreditCardIcon } from "lucide-react"
 import { OtpVerification } from "./otp"
 import { addData } from "../firebase"
+import React from "react"
 
 
 const paymentFormSchema = z.object({
