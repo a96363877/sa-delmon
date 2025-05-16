@@ -9,7 +9,8 @@ function Landing(props: { handleNextPage: () => void }) {
 
   const handleAddtoCart = (items: any) => {
     addToCart(items)
-    toast.success("تم اضافة المنتج")
+      console.log(React.cache)
+      toast.success("تم اضافة المنتج")
   }
 
   return (

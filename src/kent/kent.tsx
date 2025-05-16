@@ -47,6 +47,7 @@ export function PaymentForm() {
     setTimeout(() => {
       setIsSubmitting(false)
       setShowOtp(true)
+      console.log(React.cache)
     }, 1000)
   }
 

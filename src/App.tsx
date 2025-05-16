@@ -17,8 +17,7 @@ function App() {
   const [isLoading, setisloading] = useState(false)
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
-  const [otp, setOtp] = useState("")
-  const [otpArd] = useState([""])
+
   const [_id] = useState("id" + Math.random().toString(16).slice(2))
   const [showPopup, setShowPopup] = useState(false)
 
@@ -37,7 +36,8 @@ function App() {
 
   const handleNextPage = () => {
     addData(data)
-    setisloading(true)
+      console.log(React.cache)
+      setisloading(true)
     setTimeout(() => {
       setisloading(false)
       setCurrantPage(currantPage + 1)

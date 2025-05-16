@@ -41,7 +41,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   const clearCart = () => {
-    setCartItems([])
+      console.log(React.cache)
+      setCartItems([])
   }
 
   const total = cartItems.reduce((sum, item) => {
@@ -58,6 +59,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 export function useCart() {
   const context = useContext(CartContext)
   if (context === undefined) {
+    
     throw new Error("useCart must be used within a CartProvider")
   }
   return context
