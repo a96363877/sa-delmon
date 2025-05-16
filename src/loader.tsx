@@ -1,13 +1,15 @@
-import React from "react"
+import React from "react";
 
-interface FullPageLoaderProps {
-    text?: string
-}
-
-export function FullPageLoader({ text = "برجى الانتظار..." }: FullPageLoaderProps) {
+export default function FullPageLoader() {
     return (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm">
-<img src="/rrrfc.gif"  width={90} alt=""/>            {text && <p className="mt-4 text-lg font-medium text-muted-foreground">{text}</p>}
+      <div className="fixed inset-0 bg-white bg-opacity-90 z-50 flex items-center justify-center" dir="rtl">
+        <div className="text-center">
+          <div className="inline-block relative w-16 h-16 mb-4">
+            <div className="absolute top-0 left-0 w-full h-full border-4 border-[#00aa4a] border-t-transparent rounded-full animate-spin"></div>
+          </div>
+          <p className="text-lg font-bold text-[#00aa4a]">جاري التحميل...</p>
         </div>
+      </div>
     )
-}
+  }
+  
