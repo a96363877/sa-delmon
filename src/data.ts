@@ -12,7 +12,7 @@ export const offersData: Product[] = [
     id: "offer-1",
     name: "5 kg Peeled Jumbo Shrimp Box + 1 kg Salmon",
     price: 5.0,
-    image: "/+2 kg Salmon.png",
+    image: "/5kg.png",
   },
   {
     id: "offer-2",

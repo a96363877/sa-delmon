@@ -2,7 +2,8 @@
 import { toast } from "react-hot-toast"
 import { useCart } from "../cartContext"
 import * as React from "react"
-import { categoriesData, offersData, allProductsData } from "../data"
+import {  offersData, allProductsData } from "../data"
+import Header from "./header"
 
 function Landing(props: { handleNextPage: () => void }) {
   const { total, cartItems, addToCart } = useCart()
@@ -14,9 +15,13 @@ function Landing(props: { handleNextPage: () => void }) {
   }
 
   return (
-    <div style={{ zoom: 0.9 }} dir="ltr">
+    <div style={{ zoom: 0.9 }} dir="ltr" className="relative bg-gradient-to-br from-blue-50 via-white to-cyan-50 py-16 px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white shadow-sm">
+      <div className="fixed ">
+        <div className="fixed bg-gradient-to-br from-blue-50/50 via-white to-cyan-50/50"></div>
+        <div className="fixed bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(6,182,212,0.1),transparent_50%)]"></div>
+      </div>
+      <header className="hidden sticky top-0 z-50 bg-white shadow-sm">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
@@ -79,57 +84,12 @@ function Landing(props: { handleNextPage: () => void }) {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 pb-20">
+   
+      <section className=" overflow-hidden mb-6">
+
+    
         {/* Hero Section */}
-        <section className="py-6">
-          <h1 className="text-3xl font-bold mb-2">National Fish Company</h1>
-          <p className="text-gray-600 mb-6">
-            Discover our high-quality products of fresh and frozen fish and premium seafood. Order now with the best and
-            fastest delivery service in Bahrain.
-          </p>
-
-          {/* Categories */}
-          <div className="flex overflow-x-auto pb-4 gap-4">
-            {categoriesData.map((category) => (
-              <div key={category.id} className="flex flex-col items-center min-w-[100px]">
-                <div className="w-16 h-16 rounded-full bg-gray-100 mb-2 relative">
-                  <img
-                    src={category.image }
-                    alt={category.name}
-                    className="w- h- object-covcer rounded-full"
-                  />
-                </div>
-                <span className="text-sm">{category.name}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Filters */}
-          <div className="flex flex-wrap gap-2 my-4">
-            <div className="px-3 py-1 bg-gray-100 rounded-full text-sm flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-1"
-              >
-                <path d="M5 12h14"></path>
-                <path d="M12 5v14"></path>
-              </svg>
-              <span>Free Delivery</span>
-            </div>
-            <div className="px-3 py-1 bg-gray-100 rounded-full text-sm">
-              <span>Within 40 minutes</span>
-            </div>
-            <div className="px-3 py-1 bg-gray-100 rounded-full text-sm">
-              <span>Custom Transport</span>
-            </div>
-          </div>
+        <Header/>
         </section>
 
         {/* Store Info */}

