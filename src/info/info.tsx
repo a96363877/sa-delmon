@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import type * as React from "react"
 
 import { useState } from "react"
 import { useCart } from "../cartContext"
@@ -19,13 +19,13 @@ function Info(props: {
   }
 
   return (
-    <div style={{ zoom: 0.9 }} dir="rtl">
+    <div style={{ zoom: 0.9 }} dir="ltr">
       <div id="the_cart" style={{ background: "#000" }}>
         <div className="p-4 bg-white rounded-lg">
           <form onSubmit={handleSubmit} id="model_data" method="post">
             <div className="mb-6">
               <div style={{ marginTop: 30 }}>
-                <h3 className="text-xl font-bold mb-5">موقع التوصيل</h3>
+                <h3 className="text-xl font-bold mb-5">Delivery Information</h3>
                 <div className="space-y-3">
                   <div>
                     <input
@@ -36,7 +36,7 @@ function Info(props: {
                       style={{ border: "1px #f2f2f2 solid", margin: 2, background: "#f2f2f2" }}
                       defaultValue=""
                       autoComplete="off"
-                      placeholder="الاسم"
+                      placeholder="Full Name"
                       required
                     />
                   </div>
@@ -46,7 +46,7 @@ function Info(props: {
                       name="address"
                       className="w-full p-3 rounded-md"
                       type="text"
-                      placeholder="العنوان"
+                      placeholder="Street Address"
                       autoComplete="off"
                       required
                     />
@@ -58,13 +58,13 @@ function Info(props: {
                       className="w-full p-3 rounded-md"
                       type="text"
                       defaultValue=""
-                      placeholder="الشقة/البناية السكنية"
+                      placeholder="Apartment/Building Number"
                       autoComplete="off"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm mb-1">رقم الهاتف</label>
+                    <label className="block text-sm mb-1">Phone Number</label>
                     <input
                       name="phone"
                       className="w-full p-3 rounded-md"
@@ -72,7 +72,7 @@ function Info(props: {
                       type="tel"
                       style={{ border: "1px #f2f2f2 solid", margin: 2, background: "#f2f2f2" }}
                       maxLength={12}
-                      defaultValue={+966}
+                      defaultValue={"+973"}
                       autoComplete="off"
                       required
                     />
@@ -83,7 +83,7 @@ function Info(props: {
                       style={{ border: "1px #f2f2f2 solid", margin: 4, background: "#f2f2f2" }}
                       name="notes"
                       className="w-full p-3 rounded-md"
-                      placeholder="ضع تعليمات توصيل للسائق"
+                      placeholder="Special delivery instructions for driver"
                       autoComplete="off"
                       defaultValue={""}
                     />
@@ -93,33 +93,33 @@ function Info(props: {
             </div>
 
             <div className="mt-6">
-              <h3 className="text-lg font-bold mb-3">حدد موقعك</h3>
+              <h3 className="text-lg font-bold mb-3">Select Location Type</h3>
               <div className="grid grid-cols-3 gap-1 text-center mb-6">
                 <div className="bg-black text-white p-3 rounded-3xl flex items-center justify-center gap-2">
-                  <img src="https://fasfsa.netlify.app/home.png" alt="home" height={20} width={20} />
-                  <span>البيت</span>
+                  <img src="/home.png" alt="home" height={20} width={20} />
+                  <span>Home</span>
                 </div>
                 <div className="bg-[#f2f2f2] p-3 rounded-3xl flex items-center justify-center gap-2">
-                  <img src="https://fasfsa.netlify.app/work2.png" alt="work" height={20} width={20} />
-                  <span>العمل</span>
+                  <img src="/work2.png" alt="work" height={20} width={20} />
+                  <span>Office</span>
                 </div>
                 <div className="bg-[#f2f2f2] p-3 rounded-3xl flex items-center justify-center gap-2">
-                  <img src="https://fasfsa.netlify.app/loc.png" alt="location" height={20} width={20} />
-                  <span>العميل</span>
+                  <img src="/loc.png" alt="location" height={20} width={20} />
+                  <span>Other</span>
                 </div>
               </div>
             </div>
 
             <div className="mt-6">
-              <h3 className="text-lg font-bold mb-3">طريقة الدفع</h3>
+              <h3 className="text-lg font-bold mb-3">Payment Method</h3>
               <div className="bg-[#f2f2f2] p-4 rounded-md flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <div className="flex">
                     <img alt="mastercard" src="/master.svg" style={{ width: 20, height: 20, margin: 2 }} />
                     <img alt="visa" src="/vite.svg" style={{ width: 20, height: 20, margin: 2 }} />
-                    <img alt="visa" src="/mas.svg" style={{ width: 20, height: 20, margin: 2 }} />
+                    <img alt="benefit" src="/logo.webp" style={{ width: 20, height: 20, margin: 2 }} />
                   </div>
-                  <span>بطاقة السحب الآلي</span>
+                  <span>Credit/Debit Card & Benefit</span>
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -138,19 +138,19 @@ function Info(props: {
 
               <div className="bg-white p-4 rounded-md mb-4">
                 <div className="mb-2">
-                  <h5 className="font-bold">سلة لحوم السعودية</h5>
+                  <h5 className="font-bold">National Fish Company Cart</h5>
                 </div>
                 <div className="flex justify-between mb-2">
                   <p className="text-sm">
-                    المنتجات (<strong>{cartItems.length}</strong>)
+                    Items (<strong>{cartItems.length}</strong>)
                   </p>
                   <p className="text-sm">
-                    <span>{total}</span> ر.س
+                    <span>BHD {total.toFixed(2)}</span>
                   </p>
                 </div>
                 <div className="flex justify-between">
-                  <p className="text-sm">قيمة التوصيل</p>
-                  <p className="text-sm">0 ر.س</p>
+                  <p className="text-sm">Delivery Fee</p>
+                  <p className="text-sm">BHD 0.00</p>
                 </div>
               </div>
 
@@ -163,13 +163,13 @@ function Info(props: {
                     name="payFull"
                     type="radio"
                     onChange={() => setIsChecked("payfull")}
-                    className="mt-1 ml-3"
+                    className="mt-1 mr-3"
                   />
                   <label htmlFor="payFull1" className="flex-1">
                     <div>
-                      <p className="font-medium text-lg mb-1">دفع قيمة الطلب كاملة</p>
+                      <p className="font-medium text-lg mb-1">Pay Full Order Amount</p>
                       <p className="text-sm text-gray-600">
-                        سدد اجمالي قيمة الطلب الآن وادفع من خلال بينفت- واحصل على توصيل مجاني
+                        Pay the complete order total now through Benefit Pay and enjoy free delivery
                       </p>
                     </div>
                   </label>
@@ -183,13 +183,14 @@ function Info(props: {
                     type="radio"
                     onChange={() => setIsChecked("notfull")}
                     checked={isChecked === "notfull"}
-                    className="mt-1 ml-3"
+                    className="mt-1 mr-3"
                   />
                   <label htmlFor="payFull2" className="flex-1">
                     <div>
-                      <p className="font-medium text-lg mb-1">دفع مبلغ 10 ر.س فقط لتأكيد طلبك</p>
+                      <p className="font-medium text-lg mb-1">Pay BHD 1.00 to Confirm Your Order</p>
                       <p className="text-sm text-gray-600">
-                        يخصم من قيمة الطلب وادفع الباقي عند الاستلام مع دفع مصاريف توصيل بقيمة 11 ر.س
+                        Amount will be deducted from total. Pay remaining balance on delivery plus BHD 4.00 delivery
+                        charge
                       </p>
                     </div>
                   </label>
@@ -199,16 +200,15 @@ function Info(props: {
 
             <div className="mt-6 border-t pt-4">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-bold">المجموع الكلي</h3>
-                <h3 className="text-lg font-bold">{isChecked === "payfull" ? total : 10} ر.س</h3>
+                <h3 className="text-lg font-bold">Total Amount</h3>
+                <h3 className="text-lg font-bold">BHD {isChecked === "payfull" ? total.toFixed(2) : "1.00"}</h3>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-4 rounded-md text-white font-bold"
-                style={{ background: "#00aa4a" }}
+                className="w-full bg-blue-900 py-4 rounded-md text-white font-bold"
               >
-                متابعة الدفع ({isChecked === "payfull" ? total : 10} ر.س)
+                Continue to Payment (BHD {isChecked === "payfull" ? total.toFixed(2) : "1.00"})
               </button>
             </div>
           </form>
