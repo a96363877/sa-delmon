@@ -5,7 +5,7 @@ import * as React from "react"
 import {  offersData, allProductsData } from "../data"
 import Header from "./header"
 
-function Landing(props: { handleNextPage: () => void }) {
+function Landing(props: { handleNextPage: () => void,setTotal?:any }) {
   const { total, cartItems, addToCart } = useCart()
 
   const handleAddtoCart = (items: any) => {
