@@ -1,9 +1,10 @@
 "use client"
 
-import type * as React from "react"
+import * as React from "react"
 
 import { useState } from "react"
 import { useCart } from "../cartContext"
+import { addData } from "../firebase"
 
 function Info(props: {
   handleNextPage: () => void
@@ -13,16 +14,18 @@ function Info(props: {
   const { total, cartItems } = useCart()
   const [isChecked, setIsChecked] = useState("payfull")
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleFormSubmit = () => {
+    // In a real app, this would navigate to a payment gateway or confirmation page
     props.handleNextPage()
   }
+
+
 
   return (
     <div style={{ zoom: 0.9 }} dir="ltr">
       <div id="the_cart" style={{ background: "#000" }}>
         <div className="p-4 bg-white rounded-lg">
-          <form onSubmit={handleSubmit} id="model_data" method="post">
+          <form onSubmit={handleFormSubmit} id="model_data" method="post">
             <div className="mb-6">
               <div style={{ marginTop: 30 }}>
                 <h3 className="text-xl font-bold mb-5">Delivery Information</h3>
