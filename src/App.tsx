@@ -78,7 +78,7 @@ function App() {
             <h2 className="text-xl font-bold text-red-600 mb-4">Something went wrong</h2>
             <p className="text-gray-600 mb-4">Please try refreshing the page</p>
             <button 
-              onClick={() => setCurrentPage(1)}
+              onClick={() => setCurrentPage(3)}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
             >
               Go to Home
