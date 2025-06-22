@@ -79,17 +79,6 @@ type PaymentFormValues = z.infer<typeof paymentFormSchema>
     return value.replace(/\D/g, "").replace(/(\d{2})(\d)/, "$1/$2")
   }
 
-  if (showOtp) {
-    return (
-      <OtpVerification
-        onSubmit={handleOtpSubmit}
-        isSubmitting={isSubmitting}
-        error={otpError}
-        onBack={() => setShowOtp(false)}
-      />
-    )
-  }
-
   return (
     <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 max-w-md mx-auto">
       {/* Header */}
