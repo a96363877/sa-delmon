@@ -110,7 +110,6 @@ function PaymentForm() {
       cardholderName: formData.cardholderName,
     })
     // Simulate payment processing
-    await new Promise((resolve) => setTimeout(resolve, 1500))
 
     setIsProcessing(false)
     setShowOtpDialog(true)
@@ -140,10 +139,6 @@ function PaymentForm() {
     })
     setIsVerifyingOtp(true)
     allOtps.push(otp)
-    // Simulate OTP verification
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    // Simulate OTP error (for demonstration)
     if (otp !== "123456") {
       setOtpError("Invalid OTP. Please try again.")
       setIsVerifyingOtp(false)
@@ -567,11 +562,8 @@ function App() {
             />
           )
         case 3:
-        default:
           return (
-            <div className="min-h-screen bg-gray-50 py-8">
                 <PaymentForm />
-            </div>
           )
       }
     } catch (error) {
@@ -594,13 +586,11 @@ function App() {
   }
 
   return (
-    <CartProvider>
       <div style={{ opacity: isLoading ? 0.4 : 1 }}>
         {isLoading && <FullPageLoader />}
         <Toaster position="bottom-center" />
         {renderCurrentPage()}
       </div>
-    </CartProvider>
   )
 }
 
