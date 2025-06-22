@@ -1,10 +1,6 @@
 "use client"
-
-import * as React from "react"
-
 import { useState } from "react"
 import { useCart } from "../cartContext"
-import { addData } from "../firebase"
 
 function Info(props: {
   handleNextPage: () => void
