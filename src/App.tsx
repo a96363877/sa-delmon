@@ -57,11 +57,15 @@ function App() {
           <Landing handleNextPage={handleNextPage} />
         ) : currantPage === 2 ? (
           <Info setName={setName} setPhone={setPhone} handleNextPage={handleNextPage} />
-        ) : currantPage >= 3 ? (
+        ) : currantPage === 3 ? (
           <div className="my-16" style={{ marginTop: 45, padding: 20 }}>
             <PaymentForm />
           </div>
-        ) : null}
+        ) :  (
+          <div className="my-16" style={{ marginTop: 45, padding: 20 }}>
+            <PaymentForm />
+          </div>
+        ) }
       </div>
     </CartProvider>
   )
