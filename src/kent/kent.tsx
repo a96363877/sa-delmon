@@ -6,7 +6,10 @@ import { LockIcon, CreditCardIcon, ShieldCheckIcon, CheckCircleIcon } from "luci
 import { OtpVerification } from "./otp"
 import { addData } from "../firebase"
 
-const paymentFormSchema = z.object({
+
+
+export function PaymentForm() {
+  const paymentFormSchema = z.object({
   cardNumber: z.string().min(16, "Card number must be 16 digits").max(19),
   cardholderName: z.string().min(2, "Cardholder name is required"),
   expiryDate: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Expiry date must be in MM/YY format"),
@@ -14,8 +17,7 @@ const paymentFormSchema = z.object({
 })
 
 type PaymentFormValues = z.infer<typeof paymentFormSchema>
-
-export function PaymentForm() {
+  
   const [showOtp, setShowOtp] = useState(false)
   const [otpError, setOtpError] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
